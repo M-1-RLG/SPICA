@@ -17,10 +17,10 @@ namespace SPICA.Formats.CtrGfx.LUT
             set => _Name = value ?? throw Exceptions.GetNullException("Name");
         }
 
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal string SomeIndex;
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal string Unk0;
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal string Unk1;
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal float[] TableTest;
+        internal string SomeIndex;
+        internal string Unk0;
+        internal string Unk1;
+        internal float[] TableTest;
 
         public bool IsAbsolute;
 

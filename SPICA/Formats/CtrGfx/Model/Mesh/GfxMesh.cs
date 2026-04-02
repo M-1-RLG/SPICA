@@ -35,29 +35,9 @@ namespace SPICA.Formats.CtrGfx.Model.Mesh
 
         public int PrimitiveIndex;
 
-        /*
-         * Stuff below is filled by game engine with data (see H3DMesh for meaning of those).
-         * On the binary model file it's always zero so we can just ignore.
-         * 
-         * We have to compare to CGFX version because v4 changed from v5, yet mesh revision is still 1.0.0.0
-         */
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint Flags;
+        [Ignore] private uint[] AttrScaleCommands;
 
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        [Inline, FixedLength(12)] private uint[] AttrScaleCommands;
-
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint EnableCommandsPtr;
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint EnableCommandsLength;
-
-        [IfVersion(CmpOp.Gequal, 0x05000000, true)]
-        private uint DisableCommandsPtr;
-        [IfVersion(CmpOp.Gequal, 0x05000000, true)]
-        private uint DisableCommandsLength;
-
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
+        [Ignore]
         private string _MeshNodeName = "";
 
         public string MeshNodeName
@@ -65,15 +45,6 @@ namespace SPICA.Formats.CtrGfx.Model.Mesh
             get => _MeshNodeName;
             set => _MeshNodeName = value ?? throw Exceptions.GetNullException("MeshNodeName");
         }
-
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint RenderKeyCache;
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint  CommandAlloc;
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint Unk1;
-        [IfVersion(CmpOp.Gequal, 0x05000000, true)]
-        private uint Unk2;
 
         public GfxMesh()
         {

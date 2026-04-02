@@ -20,6 +20,7 @@ namespace SPICA.Formats.CtrGfx.Model
     [TypeChoice(0x00041202u, typeof(GfxModelSkeletal))]
     [TypeChoice(0x00020902u, typeof(GfxModelSkeletal))]
     [TypeChoice(0x00000884u, typeof(GfxModelSkeletal))]
+    [TypeChoice(0x00000884u, typeof(GfxModelSkeletal))]
     public class GfxModel : GfxNodeTransform
     {
         [Ignore]
@@ -32,20 +33,18 @@ namespace SPICA.Formats.CtrGfx.Model
 
         public List<GfxShape> Shapes;
 
-        [IfVersion(CmpOp.Greater, 0x04000000)]
+        [Ignore]
         public GfxDict<GfxMeshNodeVisibility> MeshNodeVisibilities;
 
         //Debug
-        [IfVersion(CmpOp.Lequal, 0x04000000)]
         public uint FlagsForVis;
-        [IfVersion(CmpOp.Lequal, 0x04000000)]
         public uint CullAndLayerID;
         //
 
-        [IfVersion(CmpOp.Greater, 0x04000000)]
+        [Ignore]
         public GfxModelFlags Flags;
 
-        [IfVersion(CmpOp.Greater, 0x04000000)]
+        [Ignore]
         public PICAFaceCulling FaceCulling;
 
         [IfVersion(CmpOp.Greater, 0x04000000)]

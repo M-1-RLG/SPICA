@@ -18,7 +18,7 @@ namespace SPICA.Formats.CtrGfx.Model.Mesh
 
         [IfVersion(CmpOp.Gequal, 0x05000000, true)] public readonly GfxBoundingBox BoundingBox;
 
-        [IfVersion(CmpOp.Equal,  0x04000000, true), Inline] public readonly GfxBoundingBox BoundingBoxV4;
+        [IfVersion(CmpOp.Equal,  0x04000000, true), Inline] public readonly GfxBoundingBox BoundingBoxV4;//0x00000108
 
         [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] public Vector3 MeshCenter;
 
@@ -26,9 +26,10 @@ namespace SPICA.Formats.CtrGfx.Model.Mesh
 
         public readonly List<GfxSubMesh> SubMeshes;
 
-        [IfVersion(CmpOp.Greater, 0x03000000, true)] private uint BaseAddress;
+        private uint BaseAddress;
 
-        [IfVersion(CmpOp.Equal, 0x03FFFFFF, true)] internal Vector2 Unk0;// Always 0?
+        internal uint Unk0;// Always 0?
+        internal uint Unk1;// Always 0?
 
         public readonly List<GfxVertexBuffer> VertexBuffers;
 
