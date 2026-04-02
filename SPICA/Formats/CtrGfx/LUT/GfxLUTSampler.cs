@@ -17,10 +17,10 @@ namespace SPICA.Formats.CtrGfx.LUT
             set => _Name = value ?? throw Exceptions.GetNullException("Name");
         }
 
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal string SomeIndex;
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal string Unk0;
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal string Unk1;
-        [IfVersion(CmpOp.Lequal, 0x03FFFFFF, true)] internal float[] TableTest;
+        internal string SomeIndex;
+        internal string Unk0;
+        internal string Unk1;
+        internal float[] TableTest;
 
         public bool IsAbsolute;
 
@@ -64,7 +64,6 @@ namespace SPICA.Formats.CtrGfx.LUT
                     RawCommands[i + 2] << 16 |
                     RawCommands[i + 3] << 24);
             }
-            Console.WriteLine($"RawCommands {RawCommands.Length} Commands {Commands.Length}");
 
             uint Index = 0;
 

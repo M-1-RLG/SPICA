@@ -247,7 +247,7 @@ namespace SPICA.Formats.CtrGfx
             GfxHeader Header = new GfxHeader();
             Header.Revision = Scene.Revision;
 
-            BinarySerializer Serializer = new BinarySerializer(FS, GetSerializationOptions(), true);
+            BinarySerializer Serializer = new BinarySerializer(FS, GetSerializationOptions());
 
             Serializer.RevisionStack.Clear();
             Serializer.MainFileVersion = Header.Revision;

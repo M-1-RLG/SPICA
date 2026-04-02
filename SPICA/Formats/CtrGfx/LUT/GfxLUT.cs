@@ -5,6 +5,7 @@ namespace SPICA.Formats.CtrGfx.LUT
 {
     [TypeChoice(0x04000000u, typeof(GfxLUT))]
     [TypeChoice(0x00000020u, typeof(GfxLUT))]
+    [TypeChoice(0x03000001u, typeof(GfxLUT))]
     public class GfxLUT : GfxObject
     {
         public override GfxObjRevisionsV5 Revision => GfxObjRevisionsV5.LUT;

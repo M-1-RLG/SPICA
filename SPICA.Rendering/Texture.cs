@@ -152,8 +152,6 @@ namespace SPICA.Rendering
                 width = Pow2RoundDown(width);
                 height = Pow2RoundDown(height);
 
-                Console.WriteLine($"{MipmapNum} wh {width} X {height}");
-
                 if (Format == PICATextureFormat.ETC1)
                 {
                     if (width < 16 || height < 16)

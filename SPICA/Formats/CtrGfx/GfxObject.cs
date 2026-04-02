@@ -29,7 +29,7 @@ namespace SPICA.Formats.CtrGfx
         Scene = 0,
     }
 
-    internal enum GfxObjTypesV5 : uint
+    public enum GfxObjTypesV5 : uint
     {
         None = 0xFFFFFFFF,
 

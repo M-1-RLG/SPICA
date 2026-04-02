@@ -493,8 +493,6 @@ namespace SPICA.Serialization
                 if (((ICustomSerialization)Value).Serialize(this)) return;
             }
 
-            Console.WriteLine($"{Value}");
-
             foreach (FieldInfo Info in GetFieldsSorted(ValueType))
             {
                 if (!Info.GetCustomAttribute<IfVersionAttribute>()?.Compare(CurrentRevision, MainFileVersion) ?? false) continue;

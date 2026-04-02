@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SPICA.Formats.CtrGfx;
 using SPICA.Formats.CtrGfx.Model;
+using SPICA.Formats.CtrGfx.Model.Material;
 using SPICA.Math3D;
 using SPICA.Serialization.Attributes;
 
@@ -202,17 +203,16 @@ namespace SPICA.Serialization
 
         private object ReadObject(Type ObjectType, bool IsRef = false)
         {
-
             long Position = BaseStream.Position;
             bool IsParticleModel = false;
 
-            if (ObjectType.IsDefined(typeof(TypeChoiceAttribute)))
+            if (ObjectType.IsDefined(typeof(TypeChoiceAttribute), true))
             {
                 uint TypeId = Reader.ReadUInt32();
 
                 Type Type = GetMatchingType(ObjectType, TypeId);
 
-                if (ObjectType == typeof(GfxModel) && TypeId == 0x00081202)
+                if (ObjectType == typeof(GfxModel) && (TypeId == 0x00081202|| TypeId == 0x40000112))
                 {
                     //M-1: HACK! Skip particle models so we can still render the base model
                     IsParticleModel = true;
@@ -232,6 +232,7 @@ namespace SPICA.Serialization
                         ObjectType.FullName));
                 }
             }
+
 
             object Value = Activator.CreateInstance(ObjectType);
 

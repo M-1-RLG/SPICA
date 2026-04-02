@@ -16,7 +16,6 @@ namespace SPICA.Rendering
         public LUT(H3DLUT LUT)
         {
             Name = LUT.Name;
-            Console.WriteLine($"LUT {Name}");
 
             Ids = new Dictionary<string, int>();
 

@@ -16,10 +16,12 @@ namespace SPICA.Formats.CtrGfx.Model
 {
     [TypeChoice(0x40000012u, typeof(GfxModel))]
     [TypeChoice(0x40000092u, typeof(GfxModelSkeletal))]
+    [TypeChoice(0x40000000u, typeof(GfxModelSkeletal))]
     [TypeChoice(0x40000092u, typeof(GfxModelSkeletal))]
     [TypeChoice(0x00041202u, typeof(GfxModelSkeletal))]
     [TypeChoice(0x00020902u, typeof(GfxModelSkeletal))]
     [TypeChoice(0x00000884u, typeof(GfxModelSkeletal))]
+    [TypeChoice(0x06000000u, typeof(GfxModelSkeletal))]
     public class GfxModel : GfxNodeTransform
     {
         [Ignore]
@@ -32,22 +34,11 @@ namespace SPICA.Formats.CtrGfx.Model
 
         public List<GfxShape> Shapes;
 
-        [IfVersion(CmpOp.Greater, 0x04000000)]
+        [IfVersion(CmpOp.Greater, 0x06000000)]
         public GfxDict<GfxMeshNodeVisibility> MeshNodeVisibilities;
 
-        //Debug
-        [IfVersion(CmpOp.Lequal, 0x04000000)]
-        public uint FlagsForVis;
-        [IfVersion(CmpOp.Lequal, 0x04000000)]
-        public uint CullAndLayerID;
-        //
-
-        [IfVersion(CmpOp.Greater, 0x04000000)]
         public GfxModelFlags Flags;
-
-        [IfVersion(CmpOp.Greater, 0x04000000)]
         public PICAFaceCulling FaceCulling;
-
         [IfVersion(CmpOp.Greater, 0x04000000)]
         public int LayerId;
 
@@ -91,11 +82,20 @@ namespace SPICA.Formats.CtrGfx.Model
                 Mdl.Materials.Add(Material.H3DMaterial);
             }
 
+            Mdl.MeshNodesTree = new H3DPatriciaTree();
+
+            foreach (GfxMeshNodeVisibility MeshNode in Model.MeshNodeVisibilities)
+            {
+                Mdl.MeshNodesTree.Add(MeshNode.Name);
+                Mdl.MeshNodesVisibility.Add(MeshNode.IsVisible);
+            }
+
             foreach (GfxMesh Mesh in Model.Meshes)
             {
                 GfxShape Shape = Model.Shapes[Mesh.ShapeIndex];
 
                 H3DMesh M = new H3DMesh();
+
 
                 PICAVertex[] Vertices = null;
 
@@ -251,6 +251,12 @@ namespace SPICA.Formats.CtrGfx.Model
 
                 int Layer = (int)Model.Materials[Mesh.MaterialIndex].RenderLayer;
 
+                //if(!Mdl.MeshNodesTree.Contains(Mesh.MeshNodeName))
+                //{
+                //    Mdl.MeshNodesTree.Add(Mesh.MeshNodeName);
+                //    Mdl.MeshNodesVisibility.Add(true);
+                //}
+
                 Mesh.H3DMesh = M;
                 M.MaterialIndex = (ushort)Mesh.MaterialIndex;
                 M.NodeIndex = (ushort)Mesh.MeshNodeIndex;
@@ -258,6 +264,7 @@ namespace SPICA.Formats.CtrGfx.Model
                 M.MeshCenter = Shape.BoundingBox.Center;
                 M.Layer = Layer;
                 M.Priority = Mesh.RenderPriority;
+                M.NodeIndex = (ushort)Mdl.MeshNodesTree.Find(Mesh.MeshNodeName);
 
                 H3DBoundingBox OBB = new H3DBoundingBox()
                 {
@@ -325,15 +332,7 @@ namespace SPICA.Formats.CtrGfx.Model
             }
 
             //Workaround to fix blending problems until I can find a proper way.
-            Mdl.MeshesLayer1.Reverse();
-
-            Mdl.MeshNodesTree = new H3DPatriciaTree();
-
-            foreach (GfxMeshNodeVisibility MeshNode in Model.MeshNodeVisibilities)
-            {
-                Mdl.MeshNodesTree.Add(MeshNode.Name);
-                Mdl.MeshNodesVisibility.Add(MeshNode.IsVisible);
-            }
+            //Mdl.MeshesLayer1.Reverse();
 
             if (Model is GfxModelSkeletal)
             {
@@ -360,6 +359,7 @@ namespace SPICA.Formats.CtrGfx.Model
 
                 Mdl.BoneScaling = (H3DBoneScaling)((GfxModelSkeletal)Model).Skeleton.ScalingRule;
             }
+            Mdl.MeshNodesCount = Mdl.MeshNodesTree.Count;
             return Mdl;
         }
 

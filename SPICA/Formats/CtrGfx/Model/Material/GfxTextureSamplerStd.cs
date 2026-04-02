@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using SPICA.Serialization;
+using System.Numerics;
 
 namespace SPICA.Formats.CtrGfx.Model.Material
 {

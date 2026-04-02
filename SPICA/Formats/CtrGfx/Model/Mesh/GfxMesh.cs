@@ -57,7 +57,7 @@ namespace SPICA.Formats.CtrGfx.Model.Mesh
         [IfVersion(CmpOp.Gequal, 0x05000000, true)]
         private uint DisableCommandsLength;
 
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
+        [IfVersion(CmpOp.Gequal, 0x05000000, true)]
         private string _MeshNodeName = "";
 
         public string MeshNodeName
@@ -65,15 +65,6 @@ namespace SPICA.Formats.CtrGfx.Model.Mesh
             get => _MeshNodeName;
             set => _MeshNodeName = value ?? throw Exceptions.GetNullException("MeshNodeName");
         }
-
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint RenderKeyCache;
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint  CommandAlloc;
-        [IfVersion(CmpOp.Gequal, 0x04000000, true)]
-        private uint Unk1;
-        [IfVersion(CmpOp.Gequal, 0x05000000, true)]
-        private uint Unk2;
 
         public GfxMesh()
         {

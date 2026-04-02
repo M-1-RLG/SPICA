@@ -331,8 +331,6 @@ namespace SPICA.Formats.CtrH3D.Model.Material
 
                 uint Param = Cmd.Parameters[0];
 
-                Console.WriteLine($"Register {Cmd.Register} params {string.Join(",", Cmd.Parameters)}");
-
                 switch (Cmd.Register)
                 {
                     case PICARegister.GPUREG_TEXUNIT_CONFIG:
@@ -385,8 +383,6 @@ namespace SPICA.Formats.CtrH3D.Model.Material
                 Writer.SetCommands(PICARegister.GPUREG_TEXUNIT_CONFIG, false, 0, 0, 0, 0);
                 Writer.SetCommand(PICARegister.GPUREG_TEXUNIT_CONFIG, TexUnitConfig);
                 Writer.SetCommand(PICARegister.GPUREG_TEXUNIT_CONFIG, 4103);
-
-                Console.WriteLine($"TexUnitConfig {TexUnitConfig}");
             }
             else
             {

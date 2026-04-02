@@ -44,9 +44,6 @@ namespace SPICA.Formats.CtrGfx.Model
         [IfVersion(CmpOp.Greater, 0x04000000, true)]
         public GfxDict<GfxMetaData> MetaData;
 
-        [IfVersion(CmpOp.Equal, 0x04000000, true)]
-        public uint UnkA;
-
         public GfxBone()
         {
             MetaData = new GfxDict<GfxMetaData>();

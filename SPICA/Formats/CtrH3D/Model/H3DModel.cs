@@ -95,6 +95,11 @@ namespace SPICA.Formats.CtrH3D.Model
 
         bool ICustomSerialization.Serialize(BinarySerializer Serializer)
         {
+            Meshes.Clear();
+            Meshes.AddRange(MeshesLayer0);
+            Meshes.AddRange(MeshesLayer1);
+            Meshes.AddRange(MeshesLayer2);
+            Meshes.AddRange(MeshesLayer3);
             return false;
         }
 

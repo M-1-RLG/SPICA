@@ -155,10 +155,9 @@ namespace SPICA.Formats.CtrGfx.Model.Material
 
             //BCRES 
             this.FragmentOperation.Depth.ColorMask.RedWrite = false;
-            this.FragmentOperation.Depth.ColorMask.GreenWrite = false;
-            this.FragmentOperation.Depth.ColorMask.BlueWrite = false;
-            this.FragmentOperation.Depth.ColorMask.AlphaWrite = false;
-            this.FragmentOperation.Depth.ColorMask.DepthWrite = false;
+            this.FragmentOperation.Depth.ColorMask.GreenWrite = true;
+            this.FragmentOperation.Depth.ColorMask.BlueWrite = true;
+            this.FragmentOperation.Depth.ColorMask.AlphaWrite = true;
 
             this.FragmentOperation.Blend.Mode = material.MaterialParams.BlendMode;
             this.FragmentOperation.Blend.ColorOperation = material.MaterialParams.ColorOperation;

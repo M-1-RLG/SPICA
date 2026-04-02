@@ -1,4 +1,6 @@
-﻿using SPICA.Serialization;
+﻿using Newtonsoft.Json.Linq;
+using SPICA.Formats.Common;
+using SPICA.Serialization;
 using SPICA.Serialization.Attributes;
 
 namespace SPICA.Formats.CtrGfx.Model.Material
@@ -8,10 +10,10 @@ namespace SPICA.Formats.CtrGfx.Model.Material
     [TypeChoice(0x00000001u, typeof(GfxTextureSamplerOld))]
     public class GfxTextureSampler
     {
-        [IfVersion(CmpOp.Greater, 0x04000000)]
+        [IfVersion(CmpOp.Greater, 0x04000000, true)]
         public GfxTextureMapper Parent;
 
-        [IfVersion(CmpOp.Greater, 0x04000000)]
+        [IfVersion(CmpOp.Greater, 0x04000000, true)]
         public GfxTextureMinFilter MinFilter;
     }
 }
